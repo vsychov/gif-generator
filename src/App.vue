@@ -15,18 +15,18 @@
             <div class="col-12 d-flex justify-content-center pt-4">
                 <form class="col-8" @submit.prevent="handleSumbit">
                     <div class="form-group">
-                        <label for="textMessage">Message:</label>
+                        <label for="textMessage">{{ $t('message.message') }}</label>
                         <textarea v-model="text" id="textMessage" class="form-control col-12"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="renderFrameRate" class="align-self-start">Framerate:</label>
+                        <label for="renderFrameRate" class="align-self-start">{{ $t('message.framerate') }}</label>
                         <input v-model="renderFrameRate" step="0.1" class="form-control" id="renderFrameRate"
                                type="number" min="0.1"
                                max="100"/>
-                        <small id="emailHelp" class="form-text text-muted">how many chars render peer second</small>
+                        <small id="emailHelp" class="form-text text-muted">{{ $t('message.frame_rate_help') }}</small>
                     </div>
                     <div class="form-group">
-                        <button class="form-control btn btn-primary">Generate GIF</button>
+                        <button class="form-control btn btn-primary">{{ $t('message.generate_gif') }}</button>
                     </div>
                 </form>
             </div>
@@ -34,7 +34,7 @@
         <div class="card-deck col-12 d-flex vh-100" v-if="inProgress && !renderedGifContents">
             <div class="col-12 align-self-center">
                 <h1>
-                    You gif is generating, please wait.
+                    {{ $t('message.gif_generate_inp') }}
                 </h1>
                 <div class="progress col-12 pl-0 pr-0">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
@@ -50,10 +50,14 @@
             </div>
             <div class="col-12 d-flex justify-content-center pt-4">
                 <div class="form-group pr-2">
-                    <button @click="handleDownloadAction" class="form-control btn btn-primary">Download GIF</button>
+                    <button @click="handleDownloadAction" class="form-control btn btn-primary">{{
+                        $t('message.download_gif') }}
+                    </button>
                 </div>
                 <div class="form-group pl-2">
-                    <button @click="handleNewGifRequest" class="form-control btn btn-secondary">Generate new GIF</button>
+                    <button @click="handleNewGifRequest" class="form-control btn btn-secondary">{{
+                        $t('message.generate_new_gif') }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -72,7 +76,7 @@
         data() {
             return {
                 // text: 'test',
-                text: 'Привет, у меня нет наушников, так что я не смогу прослушать такое сообщение, лол :)))',
+                text: this.$t('message.welcome_text'),
                 renderFrameRate: 4,
                 generateTrigger: null,
                 renderedGifContents: null,
@@ -83,8 +87,9 @@
         },
         methods: {
             handleNewGifRequest() {
-                this.renderedGifContents=null;
-                this.inProgress=false;
+                this.renderedGifContents = null;
+                this.inProgress = false;
+                this.gifRenderProgress = 0;
             },
             handleRenderingProgress(progress) {
                 this.gifRenderProgress = Math.round(progress);
@@ -104,7 +109,7 @@
                 };
             },
             handleDownloadAction() {
-                download( this.renderedGifContentsBlob, 'no-voice-message.gif', 'image/gif')
+                download(this.renderedGifContentsBlob, 'no-voice-message.gif', 'image/gif')
             }
         }
     }
