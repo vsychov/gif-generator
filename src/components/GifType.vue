@@ -22,6 +22,7 @@
         props: [
             "text",
             "frameRate",
+            "delay",
             "backgroundImage",
             "generateTrigger",
         ],
@@ -92,9 +93,7 @@
 
                     if (!state.text[state.textConfig.text.length]) {
                         clearInterval(state.renderInterval);
-                        if (state.captureStarted) {
-                            state.captureStopAndDownload();
-                        }
+                        this.startDelay(state)
                         return;
                     }
 
@@ -105,11 +104,17 @@
 
                     if (state.textConfig.text.length > maxTextLength) {
                         clearInterval(state.renderInterval);
-                        if (state.captureStarted) {
-                            state.captureStopAndDownload();
-                        }
+                        this.startDelay(state)
                     }
                 }, this.renderIntervalTime);
+            },
+            startDelay(state) {
+                this.renderInterval = setTimeout(() => {
+                    console.log(this)
+                    if (state.captureStarted) {
+                        state.captureStopAndDownload();
+                    }
+                }, this.delay * 1000);
             },
             redraw() {
                 this.textConfig.text = '';

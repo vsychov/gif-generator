@@ -5,6 +5,7 @@
                 <GifType
                         :text="text"
                         :frame-rate="renderFrameRate"
+                        :delay="renderDelay"
                         :background-image="require('./assets/type-bg.png')"
                         :generate-trigger="generateTrigger"
                         @renderedImage="handleRenderedImage"
@@ -24,6 +25,12 @@
                                type="number" min="0.1"
                                max="100"/>
                         <small id="emailHelp" class="form-text text-muted">{{ $t('message.frame_rate_help') }}</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="renderDelay" class="align-self-start">{{ $t('message.delay') }}</label>
+                        <input v-model="renderDelay" step="0.1" class="form-control" id="renderDelay"
+                               type="number"
+                               min="0" max="100"/>
                     </div>
                     <div class="form-group">
                         <button class="form-control btn btn-primary">{{ $t('message.generate_gif') }}</button>
@@ -78,6 +85,7 @@
                 // text: 'test',
                 text: this.$t('message.welcome_text'),
                 renderFrameRate: 4,
+                renderDelay: 2,
                 generateTrigger: null,
                 renderedGifContents: null,
                 renderedGifContentsBlob: null,

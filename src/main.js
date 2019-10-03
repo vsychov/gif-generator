@@ -19,6 +19,7 @@ const messages = {
       generate_gif: 'Generate GIF',
       frame_rate_help: 'how many chars render peer second',
       framerate: 'Framerate:',
+      delay: 'Delay:',
       message: 'Message:'
     }
   },
@@ -31,6 +32,7 @@ const messages = {
       generate_gif: 'Создать GIF',
       frame_rate_help: 'сколько символов отрисовывать в секунду',
       framerate: 'Частота кадров:',
+      delay: 'Задержка в конце:',
       message: 'Сообщение:',
     }
   }
