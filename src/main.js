@@ -12,7 +12,7 @@ Vue.config.productionTip = false;
 const messages = {
   en: {
     message: {
-      welcome_text: 'Hi, I don’t have any headphones, so I can’t listen that message, lol :)))',
+      welcome_text: 'Hi, I don’t have any headphones, so I can’t listen to that message, lol :)))',
       generate_new_gif: 'Generate new GIF',
       download_gif: 'Download GIF',
       gif_generate_inp: 'You gif is generating, please wait.',
