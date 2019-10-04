@@ -22,6 +22,7 @@
         props: [
             "text",
             "frameRate",
+            "delay",
             "backgroundImage",
             "generateTrigger",
         ],
@@ -127,6 +128,10 @@
             },
             captureStopAndDownload() {
                 let state = this;
+                let canvas = this.$refs.stage.getStage().toCanvas();
+                for (let i = 0; i < this.delay * this.frameRate; i++) {
+                    this.capturer.capture(canvas);
+                }
                 this.capturer.stop();
                 this.capturer.save(function (payload) {
                     state.$emit('renderedImage', payload);
