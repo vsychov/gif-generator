@@ -8,5 +8,8 @@ module.exports = {
                 {from: './node_modules/gif.js/dist/gif.worker.js', to: './js/gif.worker.js'},
             ]),
         ],
-    }
+    },
+    publicPath: process.env.NODE_ENV === 'production'
+        ? '/gif-generator/'
+        : '/'
 };
