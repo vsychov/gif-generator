@@ -93,7 +93,9 @@
 
                     if (!state.text[state.textConfig.text.length]) {
                         clearInterval(state.renderInterval);
-                        this.startDelay(state)
+                        if (state.captureStarted) {
+                            state.captureStopAndDownload();
+                        }
                         return;
                     }
 
@@ -104,17 +106,11 @@
 
                     if (state.textConfig.text.length > maxTextLength) {
                         clearInterval(state.renderInterval);
-                        this.startDelay(state)
+                        if (state.captureStarted) {
+                            state.captureStopAndDownload();
+                        }
                     }
                 }, this.renderIntervalTime);
-            },
-            startDelay(state) {
-                this.renderInterval = setTimeout(() => {
-                    console.log(this)
-                    if (state.captureStarted) {
-                        state.captureStopAndDownload();
-                    }
-                }, this.delay * 1000);
             },
             redraw() {
                 this.textConfig.text = '';
@@ -132,6 +128,10 @@
             },
             captureStopAndDownload() {
                 let state = this;
+                let canvas = this.$refs.stage.getStage().toCanvas();
+                for (let i = 0; i < this.delay * this.frameRate; i++) {
+                    this.capturer.capture(canvas);
+                }
                 this.capturer.stop();
                 this.capturer.save(function (payload) {
                     state.$emit('renderedImage', payload);
